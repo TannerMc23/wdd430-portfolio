@@ -1,16 +1,25 @@
-import ProjectList from '@/components/ProjectList';
-import { getProjects } from '@/lib/projects-db';
+import { Suspense } from 'react';
+import SchoolProjectList from '@/components/SchoolProjectList';
 
 export const dynamic = 'force-dynamic';
 
-export default async function SchoolProjects() {
-  const projects = await getProjects('school');
-
+export default function SchoolProjects() {
   return (
     <div>
       <h1>School Projects</h1>
       <p>Projects completed as part of my BYU-Idaho coursework.</p>
-      <ProjectList projects={projects} />
+      <Suspense fallback={<SchoolProjectsSkeleton />}>
+        <SchoolProjectList />
+      </Suspense>
     </div>
+  );
+}
+
+function SchoolProjectsSkeleton() {
+  return (
+    <section className="grid gap-4 md:grid-cols-2 animate-pulse">
+      <div className="h-32 rounded-xl bg-slate-200" />
+      <div className="h-32 rounded-xl bg-slate-200" />
+    </section>
   );
 }
