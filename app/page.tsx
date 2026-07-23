@@ -1,4 +1,5 @@
-import ProjectList from "@/components/ProjectList";
+// app/page.tsx
+import FeaturedProjectCard from "@/components/FeaturedProjectCard";
 import Skills from "@/components/Skills";
 
 const projects = [
@@ -33,7 +34,11 @@ export default function Home() {
       <Skills skills={skills} />
       <section>
         <h2 className="text-2xl font-semibold mb-6">Projects</h2>
-        <ProjectList projects={projects} />
+        <section className="grid gap-4 md:grid-cols-2">
+          {projects.map((project) => (
+            <FeaturedProjectCard key={project.title} {...project} />
+          ))}
+        </section>
       </section>
     </div>
   );
